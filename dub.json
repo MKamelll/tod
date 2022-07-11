@@ -1,0 +1,11 @@
+{
+	"authors": [
+		"Mina Kamel"
+	],
+	"copyright": "Copyright © 2022, Mina Kamel",
+	"description": "A D transpiler",
+	"license": "MIT",
+	"name": "tod",
+	"targetType": "executable",
+	"targetPath": "./build"
+}

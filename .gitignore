@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/tod
+tod.so
+tod.dylib
+tod.dll
+tod.a
+tod.lib
+tod-test-*
+*.exe
+*.o
+*.obj
+*.lst
+build
+test
