@@ -1,16 +1,18 @@
 module program;
 
+import std.typecons;
+
+alias TerminateFlag = Flag!"terminate";
+
 class Program
 {
     private string mProgram;
     private int mCurrArgsCount;
     private int mCurrParamsCount;
-    private int mCurrFunCallDepth;
-    
+
     this () {
         mCurrArgsCount = 0;
         mCurrParamsCount = 0;
-        mCurrFunCallDepth = 0;
     }
 
     private void append(string str) {
@@ -57,22 +59,6 @@ class Program
 
     private void resetParamsCount() {
         mCurrParamsCount = 0;
-    }
-
-    private int getCurrFunCallDepth() {
-        return mCurrFunCallDepth;
-    }
-
-    private void incCurrFunCallDepth() {
-        mCurrFunCallDepth++;
-    }
-
-    private void decCurrFunCallDepth() {
-        mCurrFunCallDepth--;
-    }
-
-    private void resetCurrFunCallDepth() {
-        mCurrFunCallDepth = 0;
     }
 
     Program join(Program rhs) {
@@ -183,10 +169,13 @@ class Program
         return this;
     }
 
-    Program functionReturn(string value) {
+    Program functionReturnInit() {
         append("return");
         space();
-        append(value);
+        return this;
+    }
+
+    Program functionReturnEnd() {
         semiColon();
         eol();
         return this;
@@ -215,14 +204,12 @@ class Program
     }
 
     Program functionCallInit(string name) {
-        incCurrFunCallDepth();
         append(name);
         return this;
     }
 
-    Program functionCallEnd() {
-        decCurrFunCallDepth();
-        if (getCurrFunCallDepth() < 1) {
+    Program functionCallEnd(TerminateFlag terminate = No.terminate) {
+        if (terminate) {
             semiColon();
             eol();
         }
@@ -251,7 +238,7 @@ class Program
         return this;
     }
 
-    Program binary(string lhs, string op, string rhs, bool terminate = false) {
+    Program binary(string lhs, string op, string rhs, TerminateFlag terminate = No.terminate) {
         append(lhs);
         space();
         append(op);
@@ -261,28 +248,26 @@ class Program
         return this;
     }
 
-    Program number(string number, bool terminate = false) {
+    Program number(string number, TerminateFlag terminate = No.terminate) {
         append(number);
-        space();
         if (terminate) semiColon();
         return this;
     }
 
-    Program identifier(string id, bool terminate = false) {
+    Program identifier(string id, TerminateFlag terminate = No.terminate) {
         append(id);
-        space();
         if (terminate) semiColon();
         return this;
     }
 
-    Program prefix(string op, string primary, bool terminate = false) {
+    Program prefix(string op, string primary, TerminateFlag terminate = No.terminate) {
         append(op);
         append(primary);
         if (terminate) semiColon();
         return this;
     }
 
-    Program suffix(string primary, string op, bool terminate = false) {
+    Program suffix(string primary, string op, TerminateFlag terminate = No.terminate) {
         append(primary);
         append(op);
         if (terminate) semiColon();

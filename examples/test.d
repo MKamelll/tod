@@ -1,18 +1,16 @@
 import std.stdio;
+int factorial(int num, int acc)
+{
+if(num <= 1)
+{
+return acc;
+}
+return factorial(num - 1, acc * num);
+}
+
 int main(string[] args)
 {
-if(args.length > 1)
-{
-writeln(args[1]);
-}
-else
-{
-int i = 0;
-while(i < 10)
-{
-writeln(args[0]);
-i++;}
-}
+writeln(factorial(10, 1));
 return 0;
 }
 

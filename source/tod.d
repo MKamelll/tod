@@ -3,9 +3,44 @@ module tod;
 import std.stdio;
 import program;
 import transpiler;
+import std.typecons;
 
 void main()
 {
+
+    ////////////(ex2)///////////////
+    auto factorial = new Program();
+    factorial
+    .functionInit("int", "factorial")
+    .paramsInit()
+    .paramsAdd("int", "num")
+    .paramsAdd("int", "acc")
+    .paramsEnd()
+    .blockInit()
+    
+    .ifInit()
+    .ifConditionAdd("num <= 1")
+    .ifEnd()
+    
+    .blockInit()
+    .functionReturnInit()
+    .identifier("acc")
+    .functionReturnEnd()
+    .blockEnd()
+
+    .functionReturnInit()
+    .functionCallInit("factorial")
+    .argsInit()
+    .argsAdd("num - 1")
+    .argsAdd("acc * num")
+    .argsEnd()
+    .functionCallEnd()
+    .functionReturnEnd()
+
+    .blockEnd()
+    .functionEnd();
+
+    ////////////(ex1)//////////////
     auto checkArgs = new Program();
     checkArgs
     .ifInit()		  
@@ -36,8 +71,8 @@ void main()
     .argsInit()
     .argsAdd("args[0]")
     .argsEnd()
-    .functionCallEnd()
-    .suffix("i", "++", true)
+    .functionCallEnd(Yes.terminate)
+    .suffix("i", "++", Yes.terminate)
     .blockEnd()
     
     .blockEnd()
@@ -49,13 +84,25 @@ void main()
     auto mainProgram = new Program();
     mainProgram
     .importStd("stdio")
+    .join(factorial)
     .functionInit("int", "main")
     .paramsInit()
     .paramsAdd("string[]", "args")
     .paramsEnd()
     .blockInit()
-    .join(checkArgs)
-    .functionReturn("0")
+    .functionCallInit("writeln")
+    .argsInit()
+    .functionCallInit("factorial")
+    .argsInit()
+    .argsAdd("10")
+    .argsAdd("1")
+    .argsEnd()
+    .functionCallEnd()
+    .argsEnd()
+    .functionCallEnd(Yes.terminate)
+    .functionReturnInit()
+    .number("0")
+    .functionReturnEnd()
     .blockEnd()
     .functionEnd();
 
