@@ -26,11 +26,10 @@ void main()
     
     .blockInit()
     
-    .forInit()
-    .forIndex("int", "i", "0")
-    .forCondition("i < 5")
-    .forAdvance("i++")
-    .forEnd()
+    .def("int", "i", "0")
+    .whileInit()
+    .whileCondition("i < 10")
+    .whileEnd()
     
     .blockInit()
     .functionCallInit("writeln")
@@ -38,6 +37,7 @@ void main()
     .argsAdd("args[0]")
     .argsEnd()
     .functionCallEnd()
+    .suffix("i", "++", true)
     .blockEnd()
     
     .blockEnd()

@@ -251,24 +251,41 @@ class Program
         return this;
     }
 
-    Program binary(string lhs, string op, string rhs) {
+    Program binary(string lhs, string op, string rhs, bool terminate = false) {
         append(lhs);
         space();
         append(op);
         space();
         append(rhs);
+        if (terminate) semiColon();
         return this;
     }
 
-    Program number(string number) {
+    Program number(string number, bool terminate = false) {
         append(number);
         space();
+        if (terminate) semiColon();
         return this;
     }
 
-    Program identifier(string id) {
+    Program identifier(string id, bool terminate = false) {
         append(id);
         space();
+        if (terminate) semiColon();
+        return this;
+    }
+
+    Program prefix(string op, string primary, bool terminate = false) {
+        append(op);
+        append(primary);
+        if (terminate) semiColon();
+        return this;
+    }
+
+    Program suffix(string primary, string op, bool terminate = false) {
+        append(primary);
+        append(op);
+        if (terminate) semiColon();
         return this;
     }
 
@@ -333,6 +350,22 @@ class Program
     }
 
     Program forAdvance(string expr) {
+        append(expr);
+        return this;
+    }
+
+    Program whileInit() {
+        append("while");
+        append("(");
+        return this;
+    }
+
+    Program whileEnd() {
+        append(")");
+        return this;
+    }
+
+    Program whileCondition(string expr) {
         append(expr);
         return this;
     }

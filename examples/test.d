@@ -7,10 +7,11 @@ writeln(args[1]);
 }
 else
 {
-for(int i = 0;i < 5;i++)
+int i = 0;
+while(i < 10)
 {
 writeln(args[0]);
-}
+i++;}
 }
 return 0;
 }
