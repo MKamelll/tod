@@ -75,6 +75,15 @@ class Program
         mCurrFunCallDepth = 0;
     }
 
+    Program join(Program rhs) {
+        append(rhs.getProgram());
+        return this;
+    }
+
+    string getProgram() {
+        return mProgram;
+    }
+
     Program opBinary(string op : "~")(Program rhs)
     {
         mProgram ~= rhs.getProgram();
@@ -299,12 +308,32 @@ class Program
         return this;
     }
 
-    Program join(Program rhs) {
-        append(rhs.getProgram());
+    Program forInit() {
+        append("for");
+        append("(");
         return this;
     }
 
-    string getProgram() {
-        return mProgram;
+    Program forEnd() {
+        append(")");
+        return this;
+    }
+
+    Program forIndex(string type, string name, string value) {
+        def(type, name, value);
+        pop(2);
+        semiColon();
+        return this;
+    }
+
+    Program forCondition(string expr) {
+        append(expr);
+        semiColon();
+        return this;
+    }
+
+    Program forAdvance(string expr) {
+        append(expr);
+        return this;
     }
 }

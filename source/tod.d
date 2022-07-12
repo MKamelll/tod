@@ -23,13 +23,23 @@ void main()
     .blockEnd()
     
     .elseInit()
-
+    
+    .blockInit()
+    
+    .forInit()
+    .forIndex("int", "i", "0")
+    .forCondition("i < 5")
+    .forAdvance("i++")
+    .forEnd()
+    
     .blockInit()
     .functionCallInit("writeln")
     .argsInit()
     .argsAdd("args[0]")
     .argsEnd()
     .functionCallEnd()
+    .blockEnd()
+    
     .blockEnd()
 
     .elseEnd();
