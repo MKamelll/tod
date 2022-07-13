@@ -1,4 +1,9 @@
 import std.stdio;
+struct Node
+{
+string mDate;
+Node *  mNext;
+}
 int factorial(int num, int acc)
 {
 if(num <= 1)

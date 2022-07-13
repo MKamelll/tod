@@ -8,6 +8,15 @@ import std.typecons;
 void main()
 {
 
+    auto node = new Program();
+    node
+    .structInit("Node")
+    .structEnd()
+    .blockInit()
+    .decl("string", "mDate")
+    .decl("Node * ", "mNext")
+    .blockEnd();
+    
     ////////////(ex2)///////////////
     auto factorial = new Program();
     factorial
@@ -84,6 +93,7 @@ void main()
     auto mainProgram = new Program();
     mainProgram
     .importStd("stdio")
+    .join(node)
     .join(factorial)
     .functionInit("int", "main")
     .paramsInit()

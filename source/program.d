@@ -117,7 +117,28 @@ class Program
     }
 
     Program classEnd() {
-        eol();
+        return this;
+    }
+
+    Program structInit(string name) {
+        append("struct");
+        space();
+        append(name);
+        return this;
+    }
+
+    Program structEnd() {
+        return this;
+    }
+
+    Program newInit(TerminateFlag terminate = No.terminate) {
+        append("new");
+        space();
+        if (terminate) semiColon();
+        return this;
+    }
+
+    Program newEnd() {
         return this;
     }
 
